@@ -1,7 +1,7 @@
 package com.souri.mohwscraper.services;
 
 import com.souri.mohwscraper.domain.Server;
-import com.souri.mohwscraper.util.ScraperHelper;
+import com.souri.mohwscraper.util.Scraper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ public class ScraperService {
 
     private List<Server> servers = new ArrayList<>();
 
-    private final ScraperHelper scraperHelper;
+    private final Scraper scraper;
 
-    public ScraperService(ScraperHelper scraperHelper) {
-        this.scraperHelper = scraperHelper;
+    public ScraperService(Scraper scraper) {
+        this.scraper = scraper;
     }
 
-    public void loadContents() {
-        scraperHelper.fetchAllServers().forEach(server -> servers.add(new Server(
+    private void loadContents() {
+        scraper.fetchAllServers().forEach(server -> servers.add(new Server(
                 server.get("name"),
                 server.get("players"),
                 server.get("map"),
@@ -28,6 +28,7 @@ public class ScraperService {
 
     public List<Server> getServersDetails() {
         loadContents();
+        System.out.println();
         return servers;
     }
 }
