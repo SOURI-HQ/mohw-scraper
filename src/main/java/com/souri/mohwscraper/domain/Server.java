@@ -2,7 +2,7 @@ package com.souri.mohwscraper.domain;
 
 public class Server {
 
-    private String server;
+    private String name;
     private String playerCount;
     private String map;
     private String gamemode;
@@ -10,19 +10,19 @@ public class Server {
     public Server() {
     }
 
-    public Server(String server, String playerCount, String map, String gamemode) {
-        this.server = server;
+    public Server(String name, String playerCount, String map, String gamemode) {
+        this.name = name;
         this.playerCount = playerCount;
         this.map = map;
         this.gamemode = gamemode;
     }
 
-    public String getServer() {
-        return server;
+    public String getName() {
+        return name;
     }
 
-    public void setServer(String server) {
-        this.server = server;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPlayerCount() {

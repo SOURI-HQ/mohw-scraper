@@ -26,6 +26,11 @@ public class ScraperRestController {
 
     @GetMapping(value = "/servers")
     public ResponseEntity<List<Server>> getServers() {
-        return ResponseEntity.ok(scraperService.getServersDetails());
+        return ResponseEntity.ok(scraperService.getServers());
+    }
+
+    @GetMapping(value = "/active-servers")
+    public ResponseEntity<List<Server>> getActiveServers() {
+        return ResponseEntity.ok(scraperService.getActiveServers());
     }
 }

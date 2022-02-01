@@ -4,13 +4,14 @@ import com.souri.mohwscraper.domain.Server;
 import com.souri.mohwscraper.util.Scraper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
 
 @Service
 public class ScraperService {
 
-    private List<Server> servers = new ArrayList<>();
+    private List<Server> servers = new LinkedList<>();
 
     private final Scraper scraper;
 
@@ -19,6 +20,7 @@ public class ScraperService {
     }
 
     private void loadContents() {
+        servers.clear();
         scraper.fetchAllServers().forEach(server -> servers.add(new Server(
                 server.get("name"),
                 server.get("players"),
@@ -26,9 +28,20 @@ public class ScraperService {
                 server.get("mode"))));
     }
 
-    public List<Server> getServersDetails() {
+    public List<Server> getServers() {
         loadContents();
-        System.out.println();
         return servers;
     }
+
+    public List<Server> getActiveServers() {
+        loadContents();
+        List<Server> activeServers = new LinkedList<>();
+        for (Server server : servers) {
+            if (server.getPlayerCount().charAt(0) != '0') {
+                activeServers.add(server);
+            }
+        }
+        return activeServers;
+    }
+
 }
