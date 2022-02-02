@@ -9,13 +9,13 @@ import java.util.List;
 
 
 @Service
-public class ScraperService {
+public class ServerServiceImpl implements ServerService {
 
     private List<Server> servers = new LinkedList<>();
 
     private final Scraper scraper;
 
-    public ScraperService(Scraper scraper) {
+    public ServerServiceImpl(Scraper scraper) {
         this.scraper = scraper;
     }
 
@@ -43,5 +43,4 @@ public class ScraperService {
         }
         return activeServers;
     }
-
 }
