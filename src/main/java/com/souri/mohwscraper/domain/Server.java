@@ -7,9 +7,6 @@ public class Server {
     private String map;
     private String gamemode;
 
-    public Server() {
-    }
-
     public Server(String name, String playerCount, String map, String gamemode) {
         this.name = name;
         this.playerCount = playerCount;

@@ -1,7 +1,7 @@
 package com.souri.mohwscraper.services;
 
 import com.souri.mohwscraper.domain.Server;
-import com.souri.mohwscraper.util.Scraper;
+import com.souri.mohwscraper.util.ServerScraper;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -13,9 +13,9 @@ public class ServerServiceImpl implements ServerService {
 
     private List<Server> servers = new LinkedList<>();
 
-    private final Scraper scraper;
+    private final ServerScraper scraper;
 
-    public ServerServiceImpl(Scraper scraper) {
+    public ServerServiceImpl(ServerScraper scraper) {
         this.scraper = scraper;
     }
 
