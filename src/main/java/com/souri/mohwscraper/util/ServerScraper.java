@@ -1,5 +1,6 @@
 package com.souri.mohwscraper.util;
 
+import com.souri.mohwscraper.domain.Server;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,8 +37,6 @@ public class ServerScraper {
                         put("mode", getAllServerMode(servers).get(index).text());
                     }});
                 }
-            } else {
-                return null;
             }
         } catch (IOException e) {
             e.printStackTrace();
