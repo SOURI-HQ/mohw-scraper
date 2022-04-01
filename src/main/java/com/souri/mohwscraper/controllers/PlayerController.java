@@ -27,4 +27,11 @@ public class PlayerController {
     public ResponseEntity<List<Map<String, String>>> getPlayerOverview(@PathVariable String name) {
         return ResponseEntity.ok(playerService.getPlayerOverview(name));
     }
+
+    @GetMapping("/player/{name}/details")
+    public ResponseEntity<List<Map<String, String>>> getPlayerDetails(@PathVariable String name) {
+        return ResponseEntity.ok(playerService.getPlayerDetails(name));
+    }
+    //TODO: Add other endpoints for most essential, standalone stats, like: accuracy, rank, k/d, spm
+    //TODO: Add another endpoint for player class stats
 }

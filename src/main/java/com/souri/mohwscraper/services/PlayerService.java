@@ -20,6 +20,10 @@ public class PlayerService {
 //    }
 
     public List<Map<String, String>> getPlayerOverview(String playerName) {
+        return scraper.getPlayerOverview(playerName);
+    }
+
+    public List<Map<String, String>> getPlayerDetails(String playerName) {
         return scraper.getPlayerDetails(playerName);
     }
 }
