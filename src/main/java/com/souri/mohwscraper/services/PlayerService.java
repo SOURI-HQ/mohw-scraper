@@ -1,29 +1,9 @@
 package com.souri.mohwscraper.services;
 
-import com.souri.mohwscraper.util.PlayerScraper;
-import org.springframework.stereotype.Service;
+import com.souri.mohwscraper.domain.player.PlayerDetails;
+import com.souri.mohwscraper.domain.player.PlayerOverview;
 
-import java.util.List;
-import java.util.Map;
-
-@Service
-public class PlayerService {
-
-    private final PlayerScraper scraper;
-
-    public PlayerService(PlayerScraper scraper) {
-        this.scraper = scraper;
-    }
-
-//    public String getPlayerID(String playerName) {
-//        return scraper.getPlayerURL(playerName);
-//    }
-
-    public List<Map<String, String>> getPlayerOverview(String playerName) {
-        return scraper.getPlayerOverview(playerName);
-    }
-
-    public List<Map<String, String>> getPlayerDetails(String playerName) {
-        return scraper.getPlayerDetails(playerName);
-    }
+public interface PlayerService {
+    PlayerOverview getPlayerOverview(String playerName);
+    PlayerDetails getPlayerDetails(String playerName);
 }

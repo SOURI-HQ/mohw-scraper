@@ -1,21 +1,20 @@
 package com.souri.mohwscraper.controllers;
 
-import com.souri.mohwscraper.services.PlayerService;
+import com.souri.mohwscraper.domain.player.PlayerDetails;
+import com.souri.mohwscraper.domain.player.PlayerOverview;
+import com.souri.mohwscraper.services.PlayerServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
-
 @RestController
 public class PlayerController {
 
-    private final PlayerService playerService;
+    private final PlayerServiceImpl playerServiceImpl;
 
-    public PlayerController(PlayerService playerService) {
-        this.playerService = playerService;
+    public PlayerController(PlayerServiceImpl playerServiceImpl) {
+        this.playerServiceImpl = playerServiceImpl;
     }
 
 //    @GetMapping("/player/{name}")
@@ -24,13 +23,13 @@ public class PlayerController {
 //    }
 
     @GetMapping("/player/{name}/overview")
-    public ResponseEntity<List<Map<String, String>>> getPlayerOverview(@PathVariable String name) {
-        return ResponseEntity.ok(playerService.getPlayerOverview(name));
+    public ResponseEntity<PlayerOverview> getPlayerOverview(@PathVariable String name) {
+        return ResponseEntity.ok(playerServiceImpl.getPlayerOverview(name));
     }
 
     @GetMapping("/player/{name}/details")
-    public ResponseEntity<List<Map<String, String>>> getPlayerDetails(@PathVariable String name) {
-        return ResponseEntity.ok(playerService.getPlayerDetails(name));
+    public ResponseEntity<PlayerDetails> getPlayerDetails(@PathVariable String name) {
+        return ResponseEntity.ok(playerServiceImpl.getPlayerDetails(name));
     }
     //TODO: Add other endpoints for most essential, standalone stats, like: accuracy, rank, k/d, spm
     //TODO: Add another endpoint for player class stats

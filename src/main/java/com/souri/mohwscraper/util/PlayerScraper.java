@@ -63,37 +63,40 @@ public class PlayerScraper {
         return pageSource;
     }
 
-    public List<Map<String, String>> getPlayerOverview(String playerName) {
+    public Map<String, String> getPlayerOverview(String playerName) {
         String playerID = fetchPlayerID(playerName);
 
-        List<Map<String, String>> playerOverview = new ArrayList<>();
+        Map<String, String> playerOverview = new HashMap<>();
+
         try {
             String url = baseUrl + "/soldier/" + playerName + "/stats/" + playerID + "/pc";
             Document doc = Jsoup.parse(getPage(url));
             List<Element> playerOverviewStats = doc.getElementById("overview-numbers").getElementsByTag("li");
 
-            playerOverview.add(new HashMap<>() {{
-                playerOverviewStats.forEach(n -> put(n.getElementsByTag("h4").text(), n.getElementsByTag("p").text()));
-                put("Rank", doc.getElementById("overview-rank-number").text());
-            }});
+            playerOverviewStats.forEach(n -> playerOverview.put(n.getElementsByTag("h4").text(), n.getElementsByTag("p").text()));
+            playerOverview.put("Rank", doc.getElementById("overview-rank-number").text());
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return playerOverview;
     }
 
-    public List<Map<String, String>> getPlayerDetails(String playerName) {
+    public Map<String, String> getPlayerDetails(String playerName) {
         String playerID = fetchPlayerID(playerName);
 
-        List<Map<String, String>> playerDetails = new ArrayList<>();
+        //TODO: IMPORTANT! Change back to lists or figure out how to handle nulls a different way
+        Map<String, String> playerDetails = new HashMap<>();
         try {
             String url = baseUrl + "/soldier/" + playerName + "/detailed/" + playerID + "/pc";
             Document doc = Jsoup.parse(getPage(url));
             List<Element> playerDetailsStats = doc.getElementById("mohw-stats-detailed-stats").getElementsByTag("li");
 
-            playerDetails.add(new HashMap<>() {{
-                playerDetailsStats.forEach(n -> put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()),n.getElementsByTag("strong").text()));
-            }});
+            playerDetailsStats.forEach(n -> playerDetails.put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()), n.getElementsByTag("strong").text()));
+
+//            playerDetails.add(new HashMap<>() {{
+//                playerDetailsStats.forEach(n -> put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()),n.getElementsByTag("strong").text()));
+//            }});
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
