@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
 import javax.swing.event.ListDataEvent;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.util.*;
 import java.util.NoSuchElementException;
@@ -38,7 +39,7 @@ public class PlayerScraper {
     private String getPage(String url) {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Dan\\IdeaProjects\\mohw-scraper\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--incognito");
+        //options.addArguments("--headless", "--incognito");
 
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
@@ -58,7 +59,7 @@ public class PlayerScraper {
         }
 
         String pageSource = driver.getPageSource();
-        driver.close();
+        //driver.close();
 
         return pageSource;
     }
@@ -71,6 +72,7 @@ public class PlayerScraper {
         try {
             String url = baseUrl + "/soldier/" + playerName + "/stats/" + playerID + "/pc";
             Document doc = Jsoup.parse(getPage(url));
+
             List<Element> playerOverviewStats = doc.getElementById("overview-numbers").getElementsByTag("li");
 
             playerOverviewStats.forEach(n -> playerOverview.put(n.getElementsByTag("h4").text(), n.getElementsByTag("p").text()));
@@ -82,24 +84,26 @@ public class PlayerScraper {
         return playerOverview;
     }
 
-    public Map<String, String> getPlayerDetails(String playerName) {
+    public List<Map<String, String>> getPlayerDetails(String playerName) {
         String playerID = fetchPlayerID(playerName);
 
         //TODO: IMPORTANT! Change back to lists or figure out how to handle nulls a different way
-        Map<String, String> playerDetails = new HashMap<>();
-        try {
+        List<Map<String, String>> playerDetails = new ArrayList<>();
+//        try {
             String url = baseUrl + "/soldier/" + playerName + "/detailed/" + playerID + "/pc";
             Document doc = Jsoup.parse(getPage(url));
             List<Element> playerDetailsStats = doc.getElementById("mohw-stats-detailed-stats").getElementsByTag("li");
+            if (playerDetailsStats == null) {
+                throw new NullPointerException();
+            }
+            //playerDetailsStats.forEach(n -> playerDetails.put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()), n.getElementsByTag("strong").text()));
 
-            playerDetailsStats.forEach(n -> playerDetails.put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()), n.getElementsByTag("strong").text()));
-
-//            playerDetails.add(new HashMap<>() {{
-//                playerDetailsStats.forEach(n -> put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()),n.getElementsByTag("strong").text()));
-//            }});
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+            playerDetails.add(new HashMap<>() {{
+                playerDetailsStats.forEach(n -> put(n.text().substring(0, n.text().length() - n.getElementsByTag("strong").text().length()),n.getElementsByTag("strong").text()));
+            }});
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
         return playerDetails;
     }
 }

@@ -7,6 +7,9 @@ public class PlayerDetails {
     private String maxHeadshotsInRound;
     private String maxMeleeInRound;
 
+    public PlayerDetails() {
+    }
+
     public PlayerDetails(String maxKillsInRound, String meleeKills, String maxHeadshotsInRound, String maxMeleeInRound) {
         this.maxKillsInRound = maxKillsInRound;
         this.meleeKills = meleeKills;
