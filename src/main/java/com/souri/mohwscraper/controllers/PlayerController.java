@@ -23,7 +23,7 @@ public class PlayerController {
 //    }
 
     @GetMapping("/player/{name}/overview")
-    public ResponseEntity<PlayerOverview> getPlayerOverview(@PathVariable String name) {
+    public ResponseEntity<PlayerOverview> getPlayerOverview(@PathVariable String name){
         return ResponseEntity.ok(playerServiceImpl.getPlayerOverview(name));
     }
 

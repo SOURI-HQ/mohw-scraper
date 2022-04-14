@@ -34,15 +34,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     public PlayerDetails getPlayerDetails(String playerName) {
-        List<Map<String, String>> playerDetails = scraper.getPlayerDetails(playerName);
-        if (playerDetails.isEmpty()) {
-            return new PlayerDetails();
-        }
-        else {
-            return new PlayerDetails(playerDetails.get(0).get("Max kills in a round"),
-                    playerDetails.get(0).get("Melee kills"),
-                    playerDetails.get(0).get("Max headshots in a round"),
-                    playerDetails.get(0).get("Max melee kills in a round"));
-        }
+        Map<String, String> playerDetails = scraper.getPlayerDetails(playerName);
+
+        return new PlayerDetails(playerDetails.get("Max kills in a round"),
+                    playerDetails.get("Melee kills"),
+                    playerDetails.get("Max headshots in a round"),
+                    playerDetails.get("Max melee kills in a round"));
     }
 }
