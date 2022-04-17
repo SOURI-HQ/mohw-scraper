@@ -1,6 +1,6 @@
 package com.souri.mohwscraper.util;
 
-import com.souri.mohwscraper.exceptionhandler.exceptions.IncorrectURLException;
+import com.souri.mohwscraper.exceptions.IncorrectURLException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,20 +21,24 @@ public class PlayerScraper {
     private final String baseUrl = "https://battlelog.battlefield.com/mohw/en";
 
     private String fetchPlayerID(String playerName) {
+        String playerID = "";
         try {
             Document doc = Jsoup.connect(baseUrl + "/user/" + playerName).get();
             Element playerAccount = doc.getElementById("soldier-list");
-            if (playerAccount != null && playerAccount.childrenSize() > 0) {
-                String playerID = playerAccount.children().first().attr("data-id");
-                return playerID;
+            playerID = playerAccount.children().first().attr("data-id");
+            if (playerID.equals("")) {
+                throw new NoSuchElementException("");
             }
-        } catch (IOException | NullPointerException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("Element not found: couldn't fetch player's ID");
         }
-        return null;
+
+        return playerID;
     }
 
-    private String getPage(String url) throws IncorrectURLException, TimeoutException {
+    private String getPage(String url) {
         String chromedriverEnvVar = System.getenv("Chromedriver");
         System.setProperty("webdriver.chrome.driver", chromedriverEnvVar);
         ChromeOptions options = new ChromeOptions();
@@ -45,21 +49,19 @@ public class PlayerScraper {
         try {
             driver.get(url);
         } catch (TimeoutException e) {
-            throw new TimeoutException("Couldn't open the link");
+            String error = "Timeout error: Couldn't open given link: " + url + " via webdriver";
+            throw new TimeoutException(error);
         }
-
         if (!driver.getCurrentUrl().equals(url)) {
-            throw new IncorrectURLException("Player account doesn't exist");
+            throw new IncorrectURLException("Incorrect URL: Final URL is different than expected; check if given parameters are correct e.g player account exists");
         }
-
         try {
             long pageLoadTimeout = TimeUnit.SECONDS.toSeconds(10);
             new WebDriverWait(driver, pageLoadTimeout).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         } catch (TimeoutException e) {
-            throw new TimeoutException("Document not ready");
+            throw new TimeoutException("Timeout error: Document not ready on time");
         }
-
         String pageSource = driver.getPageSource();
         driver.close();
 
@@ -73,17 +75,15 @@ public class PlayerScraper {
         String url = baseUrl + "/soldier/" + playerName + "/stats/" + playerID + "/pc";
         Document doc = Jsoup.parse(getPage(url));
         try {
-            List<Element> playerOverviewStats = doc.getElementById("overview-numbers").getElementsByTag("lis");
+            List<Element> playerOverviewStats = doc.getElementById("overview-numbers").getElementsByTag("li");
             String rank = doc.getElementById("overview-rank-number").text();
             if (playerOverviewStats.isEmpty()) {
                 throw new NoSuchElementException("");
             }
-
             playerOverviewStats.forEach(n -> playerOverview.put(n.getElementsByTag("h4").text(), n.getElementsByTag("p").text()));
             playerOverview.put("Rank", rank);
-        }
-        catch(NoSuchElementException e) {
-            throw new NoSuchElementException("Element not found");
+        } catch(NoSuchElementException e) {
+            throw new NoSuchElementException("Element not found: couldn't fetch player's overview details");
         }
 
         return playerOverview;
@@ -106,7 +106,7 @@ public class PlayerScraper {
         }
         //Handling situations when mohw-stats-detailed-stats is not found
         catch(NoSuchElementException e) {
-            throw new NoSuchElementException("Element not found");
+            throw new NoSuchElementException("Element not found: couldn't fetch player's detailed statistics");
         }
         return playerDetails;
     }
