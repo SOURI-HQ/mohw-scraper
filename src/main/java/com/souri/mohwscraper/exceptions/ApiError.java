@@ -5,17 +5,17 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-class ApiErrorResponse {
+class ApiError {
     private HttpStatus status;
     private String message;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
 
-    ApiErrorResponse() {
+    ApiError() {
         this.timestamp = LocalDateTime.now();
     }
 
-    ApiErrorResponse(HttpStatus status, String message) {
+    ApiError(HttpStatus status, String message) {
         this();
         this.status = status;
         this.message = message;
