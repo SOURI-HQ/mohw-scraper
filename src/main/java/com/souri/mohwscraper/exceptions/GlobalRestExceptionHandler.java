@@ -25,6 +25,6 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<Object> buildErrorResponseEntity(ApiError apiError) {
-        return new ResponseEntity<Object>(apiError, apiError.getStatus());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }

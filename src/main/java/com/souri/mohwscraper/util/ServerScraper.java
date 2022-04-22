@@ -25,7 +25,6 @@ public class ServerScraper {
         try {
             Document doc = Jsoup.connect(url).get();
             Element servers = doc.getElementById("serverguide-listcontainer");
-            //TODO: is there a better practice for checking if fetching DOM elements returns null
             if (servers != null) {
                 for (int i = 0; i < servers.childrenSize(); i++) {
                     int index = i;

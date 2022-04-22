@@ -74,6 +74,7 @@ public class PlayerScraper {
             throw new TimeoutException("Timeout error: Document not ready on time");
         }
         String pageSource = driver.getPageSource();
+        //TODO: Make sure the driver always closes
         driver.close();
 
         return pageSource;
@@ -86,7 +87,7 @@ public class PlayerScraper {
         String url = baseUrl + "/soldier/" + playerName + "/stats/" + playerID + "/pc";
         Document doc = Jsoup.parse(getPage(url));
         try {
-            List<Element> playerOverviewStats = doc.getElementById("overview-numbders").getElementsByTag("li");
+            List<Element> playerOverviewStats = doc.getElementById("overview-numbers").getElementsByTag("li");
             String rank = doc.getElementById("overview-rank-number").text();
             if (playerOverviewStats.isEmpty()) {
                 throw new NoSuchWebElementException("");
