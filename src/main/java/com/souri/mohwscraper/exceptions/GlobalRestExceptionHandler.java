@@ -1,6 +1,5 @@
 package com.souri.mohwscraper.exceptions;
 
-import org.openqa.selenium.TimeoutException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorResponseEntity(new ApiError(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage()));
     }
 
+    //TODO: redesign Timeout exception handler in order not to lose exception debug info
     @ExceptionHandler(value = {TimeoutException.class})
     protected ResponseEntity<Object> handleTimeoutException(TimeoutException e) {
         return buildErrorResponseEntity(new ApiError(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage()));
