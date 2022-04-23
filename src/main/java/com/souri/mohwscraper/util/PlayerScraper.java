@@ -2,11 +2,12 @@ package com.souri.mohwscraper.util;
 
 import com.souri.mohwscraper.exceptions.IncorrectURLException;
 import com.souri.mohwscraper.exceptions.NoSuchWebElementException;
-import com.souri.mohwscraper.exceptions.TimeoutException;
+//import com.souri.mohwscraper.exceptions.TimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -38,45 +39,46 @@ public class PlayerScraper {
         } catch (NoSuchWebElementException e) {
             throw new NoSuchWebElementException("Element not found: Couldn't fetch player's ID");
         } catch (NullPointerException e) {
-            throw new NoSuchWebElementException("Element not found: Couldn't fetch player's ID; check if given parameters are correct e.g player account exists");
+            throw new IncorrectURLException("Element not found: Couldn't fetch player's ID; check if given parameters are correct e.g player account exists");
         }
         return playerID;
     }
 
     private String getPage(String url) {
+        //TODO: Transition to a different, more lightweight webdriver
         String chromedriverEnvVar = System.getenv("Chromedriver");
         System.setProperty("webdriver.chrome.driver", chromedriverEnvVar);
         ChromeOptions options = new ChromeOptions();
 
-        //options.addArguments("--headless", "--incognito");
-        //options.addArguments("start-maximized",
-        //        "enable-automation",
-        //        "--no-sandbox",
-        //        "--disable-dev-shm-usage",
-        //        "--disable-browser-side-navigation",
-        //        "--disable-gpu");
+        options.addArguments("--headless", "--incognito");
+        options.addArguments("start-maximized",
+                "enable-automation",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-browser-side-navigation",
+                "--disable-gpu");
 
         WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
         //TODO: Open browser in selenium webdriver with a default tab on startup and sequentially open and close created tabs to speed up the process; keep the session
         try {
             driver.get(url);
         } catch (TimeoutException e) {
             String error = "Timeout error: Couldn't open given link: " + url + " via webdriver";
             driver.close();
-            throw new TimeoutException(error);
+            throw new com.souri.mohwscraper.exceptions.TimeoutException(error);
         }
         if (!driver.getCurrentUrl().equals(url)) {
             driver.close();
             throw new IncorrectURLException("Incorrect URL: Final URL is different than expected; check if given parameters are correct e.g player account exists");
         }
         try {
-            long pageLoadTimeout = TimeUnit.SECONDS.toSeconds(20);
+            long pageLoadTimeout = TimeUnit.SECONDS.toSeconds(50);
             new WebDriverWait(driver, pageLoadTimeout).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         } catch (TimeoutException e) {
             driver.close();
-            throw new TimeoutException("Timeout error: Document not ready on time");
+            throw new com.souri.mohwscraper.exceptions.TimeoutException("Timeout error: Document not ready on time");
         }
         String pageSource = driver.getPageSource();
         driver.close();
