@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.service;
+package com.souri.mohwscraper.services;
 
 import com.souri.mohwscraper.domain.player.PlayerDetails;
 import com.souri.mohwscraper.domain.player.PlayerOverview;

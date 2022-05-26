@@ -2,7 +2,7 @@ package com.souri.mohwscraper.controller;
 
 import com.souri.mohwscraper.domain.player.PlayerDetails;
 import com.souri.mohwscraper.domain.player.PlayerOverview;
-import com.souri.mohwscraper.service.PlayerServiceImpl;
+import com.souri.mohwscraper.services.PlayerServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

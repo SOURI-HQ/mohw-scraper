@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.exception;
+package com.souri.mohwscraper.exceptions;
 
 public class IncorrectURLException extends RuntimeException {
     public IncorrectURLException(String message) {
