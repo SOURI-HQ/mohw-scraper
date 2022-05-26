@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.exceptions;
+package com.souri.mohwscraper.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
 package com.souri.mohwscraper.util;
 
-import com.souri.mohwscraper.exceptions.IncorrectURLException;
-import com.souri.mohwscraper.exceptions.NoSuchWebElementException;
-import com.souri.mohwscraper.exceptions.TimeoutException;
+import com.souri.mohwscraper.exception.IncorrectURLException;
+import com.souri.mohwscraper.exception.NoSuchWebElementException;
+import com.souri.mohwscraper.exception.TimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -65,7 +65,7 @@ public class PlayerScraper {
         } catch (TimeoutException e) {
             String error = "Timeout error: Couldn't open given link: " + url + " via webdriver";
             driver.close();
-            throw new com.souri.mohwscraper.exceptions.TimeoutException(error);
+            throw new com.souri.mohwscraper.exception.TimeoutException(error);
         }
         if (!driver.getCurrentUrl().equals(url)) {
             driver.close();
@@ -77,7 +77,7 @@ public class PlayerScraper {
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         } catch (TimeoutException e) {
             driver.close();
-            throw new com.souri.mohwscraper.exceptions.TimeoutException("Timeout error: Document not ready on time");
+            throw new com.souri.mohwscraper.exception.TimeoutException("Timeout error: Document not ready on time");
         }
         String pageSource = driver.getPageSource();
         driver.close();

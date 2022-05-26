@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.exceptions;
+package com.souri.mohwscraper.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

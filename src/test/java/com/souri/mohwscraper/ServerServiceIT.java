@@ -1,7 +1,7 @@
 package com.souri.mohwscraper;
 
 import com.souri.mohwscraper.domain.Server;
-import com.souri.mohwscraper.services.ServerServiceImpl;
+import com.souri.mohwscraper.service.ServerServiceImpl;
 import com.souri.mohwscraper.util.ServerScraper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

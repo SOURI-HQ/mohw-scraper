@@ -1,7 +1,7 @@
 package com.souri.mohwscraper.controller;
 
 import com.souri.mohwscraper.domain.Server;
-import com.souri.mohwscraper.services.ServerServiceImpl;
+import com.souri.mohwscraper.service.ServerServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

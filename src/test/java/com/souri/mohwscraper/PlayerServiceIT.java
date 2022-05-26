@@ -1,8 +1,8 @@
 package com.souri.mohwscraper;
 
-import com.souri.mohwscraper.domain.player.PlayerDetails;
-import com.souri.mohwscraper.domain.player.PlayerOverview;
-import com.souri.mohwscraper.services.PlayerServiceImpl;
+import com.souri.mohwscraper.domain.PlayerDetails;
+import com.souri.mohwscraper.domain.PlayerOverview;
+import com.souri.mohwscraper.service.PlayerServiceImpl;
 import com.souri.mohwscraper.util.PlayerScraper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

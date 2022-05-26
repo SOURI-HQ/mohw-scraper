@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.domain.player;
+package com.souri.mohwscraper.domain;
 
 public class PlayerDetails {
 
