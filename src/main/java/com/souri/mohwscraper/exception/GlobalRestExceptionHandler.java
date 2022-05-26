@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.exceptions;
+package com.souri.mohwscraper.exception;
 
 import org.openqa.selenium.TimeoutException;
 import org.springframework.http.HttpStatus;

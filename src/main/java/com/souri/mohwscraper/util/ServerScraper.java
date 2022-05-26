@@ -14,8 +14,6 @@ import java.util.Map;
 @Component
 public class ServerScraper {
 
-    private final String url = "https://battlelog.battlefield.com/mohw/servers/";
-
     public ServerScraper() {
     }
 
@@ -23,6 +21,7 @@ public class ServerScraper {
 
         List<Map<String, String>> serversDetails = new ArrayList<>();
         try {
+            String url = "https://battlelog.battlefield.com/mohw/servers/";
             Document doc = Jsoup.connect(url).get();
             Element servers = doc.getElementById("serverguide-listcontainer");
             if (servers != null) {

@@ -1,8 +1,8 @@
-package com.souri.mohwscraper.controllers;
+package com.souri.mohwscraper.controller;
 
 import com.souri.mohwscraper.domain.player.PlayerDetails;
 import com.souri.mohwscraper.domain.player.PlayerOverview;
-import com.souri.mohwscraper.services.PlayerServiceImpl;
+import com.souri.mohwscraper.service.PlayerServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +16,6 @@ public class PlayerController {
     public PlayerController(PlayerServiceImpl playerServiceImpl) {
         this.playerServiceImpl = playerServiceImpl;
     }
-
-//    @GetMapping("/player/{name}")
-//    public String getPlayerID(@PathVariable String name) {
-//        return playerService.getPlayerID(name);
-//    }
 
     @GetMapping("/player/{name}/overview")
     public ResponseEntity<PlayerOverview> getPlayerOverview(@PathVariable String name){

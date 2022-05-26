@@ -1,11 +1,10 @@
-package com.souri.mohwscraper.services;
+package com.souri.mohwscraper.service;
 
 import com.souri.mohwscraper.domain.player.PlayerDetails;
 import com.souri.mohwscraper.domain.player.PlayerOverview;
 import com.souri.mohwscraper.util.PlayerScraper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service

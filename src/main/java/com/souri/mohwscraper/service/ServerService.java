@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.services;
+package com.souri.mohwscraper.service;
 
 import com.souri.mohwscraper.domain.Server;
 

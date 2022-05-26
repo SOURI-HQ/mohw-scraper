@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.services;
+package com.souri.mohwscraper.service;
 
 import com.souri.mohwscraper.domain.Server;
 import com.souri.mohwscraper.util.ServerScraper;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class ServerServiceImpl implements ServerService {
 
-    private List<Server> servers = new LinkedList<>();
+//    private List<Server> servers = new LinkedList<>();
 
     private final ServerScraper scraper;
 
@@ -19,22 +19,23 @@ public class ServerServiceImpl implements ServerService {
         this.scraper = scraper;
     }
 
-    private void loadContents() {
-        servers.clear();
+    private List<Server> loadContents() {
+        List<Server> servers = new LinkedList<>();
         scraper.fetchAllServers().forEach(server -> servers.add(new Server(
                 server.get("name"),
                 server.get("players"),
                 server.get("map"),
                 server.get("mode"))));
+        return servers;
     }
 
     public List<Server> getServers() {
-        loadContents();
+        List<Server> servers = loadContents();
         return servers;
     }
 
     public List<Server> getActiveServers() {
-        loadContents();
+        List<Server> servers = loadContents();
         List<Server> activeServers = new LinkedList<>();
         for (Server server : servers) {
             if (server.getPlayerCount().charAt(0) != '0') {

@@ -1,8 +1,8 @@
 package com.souri.mohwscraper.util;
 
-import com.souri.mohwscraper.exceptions.IncorrectURLException;
-import com.souri.mohwscraper.exceptions.NoSuchWebElementException;
-import com.souri.mohwscraper.exceptions.TimeoutException;
+import com.souri.mohwscraper.exception.IncorrectURLException;
+import com.souri.mohwscraper.exception.NoSuchWebElementException;
+import com.souri.mohwscraper.exception.TimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

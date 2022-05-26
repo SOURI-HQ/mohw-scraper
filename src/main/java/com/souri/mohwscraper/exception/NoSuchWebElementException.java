@@ -1,4 +1,4 @@
-package com.souri.mohwscraper.exceptions;
+package com.souri.mohwscraper.exception;
 
 public class NoSuchWebElementException extends RuntimeException {
     public NoSuchWebElementException(String message) {
