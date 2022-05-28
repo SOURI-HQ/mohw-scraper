@@ -6,6 +6,7 @@ import com.souri.mohwscraper.exception.TimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,10 +15,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 @Component
 public class PlayerScraper {
@@ -49,7 +52,7 @@ public class PlayerScraper {
         System.setProperty("webdriver.chrome.driver", chromedriverEnvVar);
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--headless", "--incognito");
+//        options.addArguments("--headless", "--incognito");
         options.addArguments("start-maximized",
                 "enable-automation",
                 "--no-sandbox",
@@ -108,8 +111,8 @@ public class PlayerScraper {
 
     public Map<String, String> getPlayerDetails(String playerName) {
         String playerID = fetchPlayerID(playerName);
-
         Map<String, String> playerDetails = new HashMap<>();
+
         String url = baseUrl + "/soldier/" + playerName + "/detailed/" + playerID + "/pc";
         Document doc = Jsoup.parse(getPage(url));
         try {
@@ -126,5 +129,43 @@ public class PlayerScraper {
         }
 
         return playerDetails;
+    }
+
+    public List<Map<String, String>> getClassStats(String playerName) {
+        String playerID = fetchPlayerID(playerName);
+
+        String url = baseUrl + "/soldier/" + playerName + "/detailed/" + playerID + "/pc";
+        Document doc = Jsoup.parse(getPage(url));
+        List<Map<String, String>> classStats = new ArrayList<>();
+
+        try {
+            List<Element> statsRows = doc.getElementById("mohw-stats-detailed-kit-stats").getElementsByTag("tr");
+            if (statsRows.isEmpty()) {
+                throw new NoSuchWebElementException("");
+            }
+            for (int i = 0; i < statsRows.get(0).childrenSize() - 1; i++) {
+                classStats.add(new HashMap<>());
+            }
+//            System.out.println(statsRows.get(0).getElementsByTag("a").first().child(0).attr("data-tooltip"));
+            List<Element> classTypes = statsRows.get(0).getElementsByTag("img");
+            classStats.
+                    forEach(e -> {
+                        e.put("Class", classTypes.get(0).attr("data-tooltip"));
+                        classTypes.remove(0);
+                    });
+            statsRows.remove(0);
+            statsRows.forEach(e -> {
+                        List<Element> cells = e.getElementsByTag("td");
+                            for (int i = 1; i < cells.size(); i++) {
+                                classStats.get(i - 1).put(cells.get(0).text(), cells.get(i).text());
+                            }
+                        });
+        }
+        //Handling situations when mohw-stats-detailed-kit-stats is not found and throws NullPointerException
+        catch(NoSuchWebElementException | NullPointerException e) {
+            throw new NoSuchWebElementException("Element not found: Couldn't fetch class statistics");
+        }
+
+        return classStats;
     }
 }

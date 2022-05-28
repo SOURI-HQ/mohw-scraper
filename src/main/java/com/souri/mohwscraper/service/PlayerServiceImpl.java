@@ -1,10 +1,13 @@
 package com.souri.mohwscraper.service;
 
+import com.souri.mohwscraper.domain.ClassStats;
 import com.souri.mohwscraper.domain.PlayerDetails;
 import com.souri.mohwscraper.domain.PlayerOverview;
 import com.souri.mohwscraper.util.PlayerScraper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -15,10 +18,6 @@ public class PlayerServiceImpl implements PlayerService {
     public PlayerServiceImpl(PlayerScraper scraper) {
         this.scraper = scraper;
     }
-
-//    public String getPlayerID(String playerName) {
-//        return scraper.getPlayerURL(playerName);
-//    }
 
     public PlayerOverview getPlayerOverview(String playerName) {
         Map<String, String> playerOverview = scraper.getPlayerOverview(playerName);
@@ -39,5 +38,25 @@ public class PlayerServiceImpl implements PlayerService {
                     playerDetails.get("Melee kills"),
                     playerDetails.get("Max headshots in a round"),
                     playerDetails.get("Max melee kills in a round"));
+    }
+
+    public List<ClassStats> getClassStats(String playerName) {
+        List<Map<String, String>> classStats = scraper.getClassStats(playerName);
+
+        return new ArrayList<>() {{
+            for (int i = 0; i < classStats.size(); i++) {
+                add(new ClassStats(classStats.get(i).get("Class"),
+                        classStats.get(i).get("Kills"),
+                        classStats.get(i).get("Deaths"),
+                        classStats.get(i).get("Score"),
+                        classStats.get(i).get("Time"),
+                        classStats.get(i).get("Kill streak"),
+                        classStats.get(i).get("Headshots"),
+                        classStats.get(i).get("Longest Headshot"),
+                        classStats.get(i).get("Headshots in a round"),
+                        classStats.get(i).get("Max score in a round"),
+                        classStats.get(i).get("Max kills in a round")));
+            }
+        }};
     }
 }
