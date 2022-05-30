@@ -1,6 +1,6 @@
 package com.souri.mohwscraper.service;
 
-import com.souri.mohwscraper.domain.ClassStats;
+import com.souri.mohwscraper.domain.PlayerClasses;
 import com.souri.mohwscraper.domain.PlayerDetails;
 import com.souri.mohwscraper.domain.PlayerOverview;
 import com.souri.mohwscraper.util.PlayerScraper;
@@ -40,12 +40,12 @@ public class PlayerServiceImpl implements PlayerService {
                     playerDetails.get("Max melee kills in a round"));
     }
 
-    public List<ClassStats> getClassStats(String playerName) {
+    public List<PlayerClasses> getPlayerClasses(String playerName) {
         List<Map<String, String>> classStats = scraper.getClassStats(playerName);
 
         return new ArrayList<>() {{
             for (int i = 0; i < classStats.size(); i++) {
-                add(new ClassStats(classStats.get(i).get("Class"),
+                add(new PlayerClasses(classStats.get(i).get("Class"),
                         classStats.get(i).get("Kills"),
                         classStats.get(i).get("Deaths"),
                         classStats.get(i).get("Score"),

@@ -1,6 +1,6 @@
 package com.souri.mohwscraper.domain;
 
-public class ClassStats {
+public class PlayerClasses {
     private String classType;
     private String kills;
     private String deaths;
@@ -13,12 +13,9 @@ public class ClassStats {
     private String maxScoreInARound;
     private String maxKillsInARound;
 
-    public ClassStats() {
-    }
-
-    public ClassStats(String classType, String kills, String deaths, String score, String time,
-                      String killStreak, String headshots, String longestHeadshot,
-                      String headshotInARound, String maxScoreInARound, String maxKillsInARound) {
+    public PlayerClasses(String classType, String kills, String deaths, String score, String time,
+                         String killStreak, String headshots, String longestHeadshot,
+                         String headshotInARound, String maxScoreInARound, String maxKillsInARound) {
         this.classType = classType;
         this.kills = kills;
         this.deaths = deaths;

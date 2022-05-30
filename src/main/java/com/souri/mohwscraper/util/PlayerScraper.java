@@ -6,7 +6,6 @@ import com.souri.mohwscraper.exception.TimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @Component
 public class PlayerScraper {
@@ -52,7 +50,7 @@ public class PlayerScraper {
         System.setProperty("webdriver.chrome.driver", chromedriverEnvVar);
         ChromeOptions options = new ChromeOptions();
 
-//        options.addArguments("--headless", "--incognito");
+        options.addArguments("--headless", "--incognito");
         options.addArguments("start-maximized",
                 "enable-automation",
                 "--no-sandbox",
@@ -146,7 +144,6 @@ public class PlayerScraper {
             for (int i = 0; i < statsRows.get(0).childrenSize() - 1; i++) {
                 classStats.add(new HashMap<>());
             }
-//            System.out.println(statsRows.get(0).getElementsByTag("a").first().child(0).attr("data-tooltip"));
             List<Element> classTypes = statsRows.get(0).getElementsByTag("img");
             classStats.
                     forEach(e -> {

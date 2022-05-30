@@ -1,6 +1,6 @@
 package com.souri.mohwscraper.controller;
 
-import com.souri.mohwscraper.domain.ClassStats;
+import com.souri.mohwscraper.domain.PlayerClasses;
 import com.souri.mohwscraper.domain.PlayerDetails;
 import com.souri.mohwscraper.domain.PlayerOverview;
 import com.souri.mohwscraper.service.PlayerServiceImpl;
@@ -29,10 +29,10 @@ public class PlayerController {
     public ResponseEntity<PlayerDetails> getPlayerDetails(@PathVariable String name) {
         return ResponseEntity.ok(playerServiceImpl.getPlayerDetails(name));
     }
-    //TODO: Add other endpoints for most essential, standalone stats, like: accuracy, rank, k/d, spm
-    //TODO: Add another endpoint for player class stats
+
     @GetMapping("/player/{name}/classes")
-    public ResponseEntity<List<ClassStats>> getClassStats(@PathVariable String name) {
-        return ResponseEntity.ok(playerServiceImpl.getClassStats(name));
+    public ResponseEntity<List<PlayerClasses>> getClassStats(@PathVariable String name) {
+        return ResponseEntity.ok(playerServiceImpl.getPlayerClasses(name));
     }
+    //TODO: Add other endpoints for most essential, standalone stats, like: accuracy, rank, k/d, spm
 }

@@ -11,8 +11,6 @@ import java.util.List;
 @Service
 public class ServerServiceImpl implements ServerService {
 
-//    private List<Server> servers = new LinkedList<>();
-
     private final ServerScraper scraper;
 
     public ServerServiceImpl(ServerScraper scraper) {
@@ -30,8 +28,7 @@ public class ServerServiceImpl implements ServerService {
     }
 
     public List<Server> getServers() {
-        List<Server> servers = loadContents();
-        return servers;
+        return loadContents();
     }
 
     public List<Server> getActiveServers() {
