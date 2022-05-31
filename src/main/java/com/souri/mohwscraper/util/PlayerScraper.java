@@ -46,9 +46,12 @@ public class PlayerScraper {
 
     private String getPage(String url) {
         //TODO: Transition to a different, more lightweight webdriver
-        String chromedriverEnvVar = System.getenv("Chromedriver");
+        String chromedriverEnvVar = System.getenv("CHROMEDRIVER_PATH");
+        String chromeLocationEnvVar = System.getenv("GOOGLE_CHROME_BIN");
         System.setProperty("webdriver.chrome.driver", chromedriverEnvVar);
+
         ChromeOptions options = new ChromeOptions();
+        options.setBinary(chromeLocationEnvVar);
 
         options.addArguments("--headless", "--incognito");
         options.addArguments("start-maximized",
