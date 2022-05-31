@@ -21,27 +21,27 @@ class ApiError {
         this.message = message;
     }
 
-    HttpStatus getStatus() {
+    public HttpStatus getStatus() {
         return status;
     }
 
-    void setStatus(HttpStatus status) {
+    public void setStatus(HttpStatus status) {
         this.status = status;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    void setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    LocalDateTime getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }
