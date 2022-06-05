@@ -2,8 +2,8 @@ package com.souri.mohwscraper;
 
 import com.souri.mohwscraper.domain.PlayerDetails;
 import com.souri.mohwscraper.domain.PlayerOverview;
-import com.souri.mohwscraper.service.PlayerServiceImpl;
-import com.souri.mohwscraper.util.PlayerScraper;
+import com.souri.mohwscraper.service.PlayerServiceImplV1;
+import com.souri.mohwscraper.util.PlayerScraperV1;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +22,10 @@ import static org.mockito.Mockito.*;
 class PlayerServiceIT {
 
     @Autowired
-    private PlayerServiceImpl playerService;
+    private PlayerServiceImplV1 playerService;
 
     @MockBean
-    private PlayerScraper playerScraper;
+    private PlayerScraperV1 playerScraper;
 
     @Test
     void shouldReturnNotNullPlayerOverview() {

@@ -27,4 +27,6 @@ public class ServerController {
         return ResponseEntity.ok(serverServiceImpl.getActiveServers());
     }
 
+    //TODO: Add an endpoint that returns names of players that play on a server
+
 }
