@@ -23,6 +23,7 @@ public class PlayerController {
         this.playerServiceImplV1 = playerServiceImplV1;
     }
 
+    //TODO: Add endpoints with already formatted values (e.g. instead "accuracy": "29.86439946952959" -> "29.9%")
     @GetMapping("/player/{name}/overview")
     public ResponseEntity<PlayerOverview> getPlayerOverview(@PathVariable String name) {
         return ResponseEntity.ok(playerServiceImpl.getPlayerOverview(name));
@@ -35,7 +36,7 @@ public class PlayerController {
 
     @GetMapping(value = "/player/{name}/classes")
     public ResponseEntity<List<PlayerClasses>> getClassStats(@PathVariable String name) {
-        return ResponseEntity.ok(playerServiceImplV1.getPlayerClasses(name));
+        return ResponseEntity.ok(playerServiceImpl.getPlayerClasses(name));
     }
 
 //    First version of the scraper using selenium web driver to get data
