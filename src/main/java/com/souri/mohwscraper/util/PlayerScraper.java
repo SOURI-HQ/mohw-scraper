@@ -9,8 +9,7 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class PlayerScraper {
@@ -87,12 +86,44 @@ public class PlayerScraper {
         }};
     }
 
-    public Map<String, String> getPlayerClasses(String playerName) {
+    public List<Map<String, String>> getPlayerClasses(String playerName) {
         String url = getUrl(playerName);
 
         JSONObject data = getJSONResponse(url).getJSONObject("data");
         JSONObject overviewStats = data.getJSONObject("overviewStats");
 
-        return null;
+        // kitTimes, kitScores, kitKills, kitDeaths, kitKillStreak, kitHeadshots, kitLongestHeadshot, kitMaxKillsInRound, kitMaxHeadshotsInRound, kitMaxScoreInRound
+        String[] classStatsNames = new String[] {"kitTimes", "kitScores",
+                "kitKills", "kitDeaths", "kitKillStreak",
+                "kitHeadshots", "kitLongestHeadshot", "kitMaxKillsInRound",
+                "kitMaxHeadshotsInRound", "kitMaxScoreInRound"};
+
+        List<Map<String, String>> playerClasses = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            playerClasses.add(new HashMap<>());
+        }
+        for (int i = 0; i < 6; i++) {
+            JSONObject stat = overviewStats.getJSONObject("kitTimes");
+            Iterator<String> iterator = stat.keys();
+            playerClasses.forEach(e -> e.put("type", iterator.next()));
+        }
+        for (String statName: classStatsNames) {
+            JSONObject stat = overviewStats.getJSONObject(statName);
+            Iterator<String> iterator = stat.keys();
+            playerClasses.forEach(e -> {
+                String className = iterator.next();
+                e.put(statName, stat.get(className).toString());
+            });
+            iterator.remove();
+        }
+
+/*      1024 - spec ops
+        512 - pointman
+        256 - assaulter
+        128 - demolitian
+        32 - heavy gunner
+        8 - sniper  */
+
+        return playerClasses;
     }
 }

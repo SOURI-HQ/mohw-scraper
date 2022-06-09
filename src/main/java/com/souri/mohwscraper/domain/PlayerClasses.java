@@ -9,13 +9,13 @@ public class PlayerClasses {
     private String killStreak;
     private String headshots;
     private String longestHeadshot;
-    private String headshotInARound;
-    private String maxScoreInARound;
-    private String maxKillsInARound;
+    private String headshotsInRound;
+    private String maxScoreInRound;
+    private String maxKillsInRound;
 
     public PlayerClasses(String classType, String kills, String deaths, String score, String time,
                          String killStreak, String headshots, String longestHeadshot,
-                         String headshotInARound, String maxScoreInARound, String maxKillsInARound) {
+                         String headshotsInRound, String maxScoreInRound, String maxKillsInRound) {
         this.classType = classType;
         this.kills = kills;
         this.deaths = deaths;
@@ -24,9 +24,9 @@ public class PlayerClasses {
         this.killStreak = killStreak;
         this.headshots = headshots;
         this.longestHeadshot = longestHeadshot;
-        this.headshotInARound = headshotInARound;
-        this.maxScoreInARound = maxScoreInARound;
-        this.maxKillsInARound = maxKillsInARound;
+        this.headshotsInRound = headshotsInRound;
+        this.maxScoreInRound = maxScoreInRound;
+        this.maxKillsInRound = maxKillsInRound;
     }
 
     public String getClassType() {
@@ -93,27 +93,27 @@ public class PlayerClasses {
         this.longestHeadshot = longestHeadshot;
     }
 
-    public String getHeadshotInARound() {
-        return headshotInARound;
+    public String getHeadshotsInRound() {
+        return headshotsInRound;
     }
 
-    public void setHeadshotInARound(String headshotInARound) {
-        this.headshotInARound = headshotInARound;
+    public void setHeadshotsInRound(String headshotsInRound) {
+        this.headshotsInRound = headshotsInRound;
     }
 
-    public String getMaxScoreInARound() {
-        return maxScoreInARound;
+    public String getMaxScoreInRound() {
+        return maxScoreInRound;
     }
 
-    public void setMaxScoreInARound(String maxScoreInARound) {
-        this.maxScoreInARound = maxScoreInARound;
+    public void setMaxScoreInRound(String maxScoreInRound) {
+        this.maxScoreInRound = maxScoreInRound;
     }
 
-    public String getMaxKillsInARound() {
-        return maxKillsInARound;
+    public String getMaxKillsInRound() {
+        return maxKillsInRound;
     }
 
-    public void setMaxKillsInARound(String maxKillsInARound) {
-        this.maxKillsInARound = maxKillsInARound;
+    public void setMaxKillsInRound(String maxKillsInRound) {
+        this.maxKillsInRound = maxKillsInRound;
     }
 }

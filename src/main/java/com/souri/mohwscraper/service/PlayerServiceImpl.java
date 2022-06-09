@@ -6,6 +6,7 @@ import com.souri.mohwscraper.domain.PlayerOverview;
 import com.souri.mohwscraper.util.PlayerScraper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,50 @@ public class PlayerServiceImpl implements PlayerService {
         );
     }
     public List<PlayerClasses> getPlayerClasses(String playerName) {
-        return null;
+        List<Map<String, String>> playerClasses = scraper.getPlayerClasses(playerName);
+        List<PlayerClasses> playerClassesList = new ArrayList<>() {{
+            for (int i = 0; i < playerClasses.size(); i++) {
+                add(new PlayerClasses(playerClasses.get(i).get("type"),
+                        playerClasses.get(i).get("kitKills"),
+                        playerClasses.get(i).get("kitDeaths"),
+                        playerClasses.get(i).get("kitScores"),
+                        playerClasses.get(i).get("kitTimes"),
+                        playerClasses.get(i).get("kitKillStreak"),
+                        playerClasses.get(i).get("kitHeadshots"),
+                        playerClasses.get(i).get("kitLongestHeadshot"),
+                        playerClasses.get(i).get("kitMaxHeadshotsInRound"),
+                        playerClasses.get(i).get("kitMaxScoreInRound"),
+                        playerClasses.get(i).get("kitMaxKillsInRound"))
+                );
+            }
+        }};
+
+        playerClassesList.forEach(e -> {
+            double time = (double) Integer.parseInt(e.getTime()) / 3600;
+            e.setTime(time + "");
+
+            switch(e.getClassType()) {
+                case "1024":
+                    e.setClassType("Spec Ops");
+                    break;
+                case "512":
+                    e.setClassType("Pointman");
+                    break;
+                case "256":
+                    e.setClassType("Assaulter");
+                    break;
+                case "128":
+                    e.setClassType("Demolition");
+                    break;
+                case "32":
+                    e.setClassType("Heavy Gunner");
+                    break;
+                case "8":
+                    e.setClassType("Sniper");
+                    break;
+            }
+        });
+
+        return playerClassesList;
     }
 }
