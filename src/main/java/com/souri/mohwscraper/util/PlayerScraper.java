@@ -52,7 +52,6 @@ public class PlayerScraper {
     public Map<String, String> getPlayerOverview(String playerName) {
         String url = getUrl(playerName);
 
-        //deaths, kills, kdRatio, maxMeleeKillsInRound, headshots, maxHeadshotsInRound, score, accuracy, timePlayed, scorePerMinute, maxKillsInRound, tokensSpent, winPercentage, ?meleeKills?
         JSONObject data = getJSONResponse(url).getJSONObject("data");
         JSONObject overviewStats = data.getJSONObject("overviewStats");
 
@@ -92,7 +91,6 @@ public class PlayerScraper {
         JSONObject data = getJSONResponse(url).getJSONObject("data");
         JSONObject overviewStats = data.getJSONObject("overviewStats");
 
-        // kitTimes, kitScores, kitKills, kitDeaths, kitKillStreak, kitHeadshots, kitLongestHeadshot, kitMaxKillsInRound, kitMaxHeadshotsInRound, kitMaxScoreInRound
         String[] classStatsNames = new String[] {"kitTimes", "kitScores",
                 "kitKills", "kitDeaths", "kitKillStreak",
                 "kitHeadshots", "kitLongestHeadshot", "kitMaxKillsInRound",
@@ -116,13 +114,6 @@ public class PlayerScraper {
             });
             iterator.remove();
         }
-
-/*      1024 - spec ops
-        512 - pointman
-        256 - assaulter
-        128 - demolitian
-        32 - heavy gunner
-        8 - sniper  */
 
         return playerClasses;
     }

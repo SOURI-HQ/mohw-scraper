@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class PlayerServiceIT {
+class PlayerServiceV1IT {
 
     @Autowired
     private PlayerServiceImplV1 playerService;

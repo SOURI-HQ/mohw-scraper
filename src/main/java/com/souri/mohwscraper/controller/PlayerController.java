@@ -40,6 +40,7 @@ public class PlayerController {
     }
 
 //    First version of the scraper using selenium web driver to get data
+
     @GetMapping(value = "/player/{name}/overview", params = "version=1")
     public ResponseEntity<PlayerOverview> getPlayerOverview_v1(@PathVariable String name) {
         return ResponseEntity.ok(playerServiceImplV1.getPlayerOverview(name));
