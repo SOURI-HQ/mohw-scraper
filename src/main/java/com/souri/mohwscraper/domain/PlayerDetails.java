@@ -16,6 +16,7 @@ public class PlayerDetails {
         this.maxHeadshotsInRound = maxHeadshotsInRound;
         this.maxMeleeInRound = maxMeleeInRound;
     }
+
     public PlayerDetails(String maxKillsInRound, String meleeKills, String maxHeadshotsInRound, String maxMeleeInRound, String kills, String deaths) {
         this.maxKillsInRound = maxKillsInRound;
         this.meleeKills = meleeKills;
