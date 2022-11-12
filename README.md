@@ -15,6 +15,7 @@ As the driver isn't that lightweight, the first approach has made it to the fina
 | PlayerOverview | player/{name}/getPlayerOverview | Returns provided player's general stats overview. |
 | PlayerDetails  | player/{name}/getPlayerDetails  | Returns provided player's more detailed stats     |
 | PlayerClasses  | player/{name}/getPlayerClasses  | Returns provided player's class type stats        |
+
 ###Server
 | Resource         | Available endpoints        | Description                                    |
 |------------------|----------------------------|------------------------------------------------|
