@@ -28,20 +28,37 @@ public class PlayerController {
         this.playerServiceImplV1 = playerServiceImplV1;
     }
 
-    @GetMapping("/player/{name}/overview")
     @ApiOperation(value = "Get an overview of player's most generic stats e.g. rank, accuracy, score per minute (spm)", notes = "Need to provide existing player's name")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = PlayerOverview.class),
+            @ApiResponse(code = 400, message = "Player not found on Battlelog"),
+            @ApiResponse(code = 503, message = "Battlelog platform could not provide requested service")
+    })
+    @GetMapping("/player/{name}/overview")
     public ResponseEntity<PlayerOverview> getPlayerOverview(@ApiParam(value = "Player's name", example = "SOURI_HQ") @PathVariable String name) {
         return ResponseEntity.ok(playerServiceImpl.getPlayerOverview(name));
     }
 
-    @GetMapping(value = "/player/{name}/details")
+
     @ApiOperation(value = "Get a list of secondary player's stats e.g. max kills in a round or overall number of melee kills", notes = "Need to provide existing player's name")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = PlayerDetails.class),
+            @ApiResponse(code = 400, message = "Player not found on Battlelog"),
+            @ApiResponse(code = 503, message = "Battlelog platform could not provide requested service")
+    })
+    @GetMapping(value = "/player/{name}/details")
     public ResponseEntity<PlayerDetails> getPlayerDetails(@ApiParam(value = "Player's name", example = "SOURI_HQ") @PathVariable String name) {
         return ResponseEntity.ok(playerServiceImpl.getPlayerDetails(name));
     }
 
-    @GetMapping(value = "/player/{name}/classes")
+
     @ApiOperation(value = "Get player's list of class types along with corresponding to them specific stats like kills, deaths and headshots", notes = "Need to provide existing player's name")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = PlayerClasses.class),
+            @ApiResponse(code = 400, message = "Player not found on Battlelog"),
+            @ApiResponse(code = 503, message = "Battlelog platform could not provide requested service")
+    })
+    @GetMapping(value = "/player/{name}/classes")
     public ResponseEntity<List<PlayerClasses>> getClassStats(@ApiParam(value = "Player's name", example = "SOURI_HQ") @PathVariable String name) {
         return ResponseEntity.ok(playerServiceImpl.getPlayerClasses(name));
     }
@@ -65,5 +82,4 @@ public class PlayerController {
     public ResponseEntity<List<PlayerClasses>> getClassStats_v1(@PathVariable String name) {
         return ResponseEntity.ok(playerServiceImplV1.getPlayerClasses(name));
     }
-    //TODO: Add other endpoints for most essential, standalone stats, like: accuracy, rank, k/d, spm
 }
