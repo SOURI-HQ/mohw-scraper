@@ -2,6 +2,7 @@ package com.souri.mohwscraper.util;
 
 import com.souri.mohwscraper.exception.IncorrectURLException;
 import com.souri.mohwscraper.exception.NoSuchWebElementException;
+import com.souri.mohwscraper.service.PlayerClassType;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -97,10 +98,12 @@ public class PlayerScraper {
                 "kitMaxHeadshotsInRound", "kitMaxScoreInRound"};
 
         List<Map<String, String>> playerClasses = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+
+        int numberOfClassTypes = PlayerClassType.values().length;
+        for (int i = 0; i < numberOfClassTypes; i++) {
             playerClasses.add(new HashMap<>());
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < numberOfClassTypes; i++) {
             JSONObject stat = overviewStats.getJSONObject("kitTimes");
             Iterator<String> iterator = stat.keys();
             playerClasses.forEach(e -> e.put("type", iterator.next()));

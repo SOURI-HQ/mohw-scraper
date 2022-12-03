@@ -19,21 +19,6 @@ public class PlayerServiceImpl implements PlayerService {
         this.scraper = scraper;
     }
 
-    private enum ClassType {
-        c_1024("Spec Ops"),
-        c_512("Pointman"),
-        c_256("Assaulter"),
-        c_128("Demolition"),
-        c_32("Heavy Gunner"),
-        c_8("Sniper");
-
-        private final String returnedTypeName;
-
-        ClassType(String returnedTypeName) {
-            this.returnedTypeName = returnedTypeName;
-        }
-    }
-
     public PlayerOverview getPlayerOverview(String playerName) {
         Map<String, String> playerOverview = scraper.getPlayerOverview(playerName);
 
@@ -83,22 +68,22 @@ public class PlayerServiceImpl implements PlayerService {
 
             switch(e.getClassType()) {
                 case "1024":
-                    e.setClassType(ClassType.c_1024.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_1024.returnedTypeName);
                     break;
                 case "512":
-                    e.setClassType(ClassType.c_512.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_512.returnedTypeName);
                     break;
                 case "256":
-                    e.setClassType(ClassType.c_256.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_256.returnedTypeName);
                     break;
                 case "128":
-                    e.setClassType(ClassType.c_128.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_128.returnedTypeName);
                     break;
                 case "32":
-                    e.setClassType(ClassType.c_32.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_32.returnedTypeName);
                     break;
                 case "8":
-                    e.setClassType(ClassType.c_8.returnedTypeName);
+                    e.setClassType(PlayerClassType.c_8.returnedTypeName);
                     break;
             }
         });
