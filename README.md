@@ -2,7 +2,10 @@
 
 A REST API providing scraped and captured data about players and servers statistics from EA's official Medal of Honor Warfighter battlelog website - https://battlelog.battlefield.com/mohw/
 
-Hosted on [heroku](https://www.heroku.com), shared on [Rapid API](https://rapidapi.com), MoHW Battlelog Scraper can be found **[here](https://rapidapi.com/SOURI/api/mohw-battlelog-scraper/)** 
+###Important!
+On 16th of February 2023, EA officially shut down multiplayer aspects of Medal of Honor Warfighter. As a result of Blaze server and The Game Statistics Engine on Battlelog being offline, MoHW Battlelog Scraper is rendered unavailable.
+
+~~Hosted on [heroku](https://www.heroku.com)~~, shared on [Rapid API](https://rapidapi.com), MoHW Battlelog Scraper can be found **[here](https://rapidapi.com/SOURI/api/mohw-battlelog-scraper/)** 
 along with detailed [Swagger documentation](https://mohw-battlelog-scraper.herokuapp.com/swagger-ui.html).
 
 ## :heavy_check_mark: Endpoints
